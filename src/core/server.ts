@@ -36,7 +36,22 @@ export function createMiddleware(options: { editor: string }) {
     // strings like ?t=1234567890 that would break strict equality.
     const basePath = req.url.split("?")[0];
 
-    if (basePath !== "/__wte/open" || req.method !== "POST") {
+    if (basePath !== "/__wte/open") {
+      return next();
+    }
+
+    // Respond to CORS preflight — browser sends OPTIONS before POST when
+    // Content-Type is application/json (a non-simple header).
+    if (req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "POST");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      res.statusCode = 204;
+      res.end();
+      return;
+    }
+
+    if (req.method !== "POST") {
       return next();
     }
 

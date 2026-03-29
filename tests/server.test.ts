@@ -23,6 +23,10 @@ function makeRes() {
     statusCode: 200,
     ended: false,
     body: "" as string | undefined,
+    headers: {} as Record<string, string>,
+    setHeader(name: string, value: string) {
+      this.headers[name.toLowerCase()] = value;
+    },
     end(msg?: string) {
       this.ended = true;
       this.body = msg;
@@ -38,6 +42,16 @@ describe("createMiddleware", () => {
     const req = { url: "/other", method: "GET" } as any;
     const res = makeRes();
     mw(req, res, done);
+  });
+
+  it("responds 204 to OPTIONS preflight on the WTE path", () => {
+    const mw = createMiddleware({ editor: "vscode" });
+    const req = { url: "/__wte/open", method: "OPTIONS" } as any;
+    const res = makeRes();
+    mw(req, res, () => { throw new Error("next() must not be called for OPTIONS"); });
+    assert.equal(res.statusCode, 204);
+    assert.ok(res.ended);
+    assert.equal(res.headers["access-control-allow-methods"], "POST");
   });
 
   it("calls next() for GET requests to the WTC path", (_ctx, done) => {
