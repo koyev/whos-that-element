@@ -85,12 +85,12 @@ import "whos-that-element/client";
 
 ## Compatibility
 
-| Environment                        | Status         |
-| ---------------------------------- | -------------- |
-| Laravel + Inertia (React/Vue/Svelte) | ✅ Supported  |
-| Vite + React / Vue / Svelte        | ✅ Supported   |
-| Next.js                            | ❌ Not supported — Turbopack does not expose the Vite plugin API |
-| Nuxt                               | 🔜 Coming soon |
+| Environment                          | Status                 |
+| ------------------------------------ | ---------------------- |
+| Laravel + Inertia (React/Vue/Svelte) | ✅ Supported           |
+| Vite + React / Vue / Svelte          | ✅ Supported           |
+| Next.js                              | ❌ Not supported (yet) |
+| Nuxt                                 | 🔜 Coming soon         |
 
 ---
 
