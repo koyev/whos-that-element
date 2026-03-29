@@ -1,0 +1,49 @@
+{
+  "name": "whos-that-component",
+  "version": "0.1.0",
+  "description": "Option+Click any element to open it in your IDE",
+  "type": "module",
+  "exports": {
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "import": "./dist/vite.js",
+      "require": "./dist/vite.cjs"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
+      "require": "./dist/client.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx/esm --test tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.29.0",
+    "@babel/traverse": "^7.29.0",
+    "@types/babel__traverse": "^7.28.0",
+    "launch-editor": "^2.13.1",
+    "magic-string": "^0.30.21"
+  },
+  "peerDependencies": {
+    "vite": ">=5"
+  },
+  "devDependencies": {
+    "@emnapi/core": "^1.9.1",
+    "@emnapi/runtime": "^1.9.1",
+    "@types/node": "^25.3.5",
+    "@types/react": "^19.2.14",
+    "@vue/compiler-sfc": "^3.5.29",
+    "svelte": "^5.53.7",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.3"
+  }
+}
