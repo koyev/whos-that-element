@@ -15,6 +15,12 @@
       "require": "./dist/client.cjs"
     }
   },
+  "typesVersions": {
+    "*": {
+      "vite": ["./dist/vite.d.ts"],
+      "client": ["./dist/client.d.ts"]
+    }
+  },
   "files": [
     "dist"
   ],

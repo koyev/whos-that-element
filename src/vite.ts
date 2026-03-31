@@ -7,7 +7,11 @@ import { createMiddleware } from "./core/server.js";
 const SUPPORTED = /\.(jsx?|tsx?|vue|svelte)$/;
 const VIRTUAL_CLIENT_ID = "\0virtual:wte-client";
 
-export default function wte(options: WhosThatElementOptions = {}): Plugin {
+// Return type is intentionally `any` so consumers running a different Vite
+// version (v7 rollup vs v8 rolldown) don't hit Plugin type incompatibilities.
+// The internal `Plugin` cast keeps hook implementations fully typed.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function wte(options: WhosThatElementOptions = {}): any {
   const { triggerKey = "Alt", editor = "vscode", enabled } = options;
   const middleware = createMiddleware({ editor });
 
@@ -16,7 +20,7 @@ export default function wte(options: WhosThatElementOptions = {}): Plugin {
   // PHP on a different port.
   let serverOrigin = "http://localhost:5173";
 
-  return {
+  const plugin: Plugin = {
     name: "whos-that-element",
     enforce: "pre",
     apply: "serve", // never runs during `vite build`
@@ -57,4 +61,6 @@ export default function wte(options: WhosThatElementOptions = {}): Plugin {
       return transform(code, id);
     },
   };
+
+  return plugin;
 }
